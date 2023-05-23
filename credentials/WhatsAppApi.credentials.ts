@@ -1,26 +1,26 @@
 import {
 	IAuthenticateGeneric,
-	ICredentialTestRequest,
+	// ICredentialTestRequest,
 	ICredentialType,
 	INodeProperties,
 } from 'n8n-workflow';
 
-export class HttpBinApi implements ICredentialType {
-	name = 'httpbinApi';
-	displayName = 'HttpBin API';
+export class WhatsAppApi implements ICredentialType {
+	name = 'whatsappCredentialsApi';
+	displayName = 'WhatsApp Cloud API';
 	documentationUrl = '<your-docs-url>';
 	properties: INodeProperties[] = [
 		{
-			displayName: 'Token',
-			name: 'token',
+			displayName: 'WhatsApp Token',
+			name: 'wppToken',
 			type: 'string',
 			default: '',
 		},
 		{
-			displayName: 'Domain',
-			name: 'domain',
+			displayName: 'Verify Token',
+			name: 'verifyToken',
 			type: 'string',
-			default: 'https://httpbin.org',
+			default: '',
 		},
 	];
 
@@ -38,10 +38,10 @@ export class HttpBinApi implements ICredentialType {
 	};
 
 	// The block below tells how this credential can be tested
-	test: ICredentialTestRequest = {
-		request: {
-			baseURL: '={{$credentials?.domain}}',
-			url: '/bearer',
-		},
-	};
+	// test: ICredentialTestRequest = {
+	// 	request: {
+	// 		baseURL: '={{$credentials?.domain}}',
+	// 		url: '/bearer',
+	// 	},
+	// };
 }
