@@ -3,7 +3,7 @@ import { ICredentialType, INodeProperties } from 'n8n-workflow';
 export class DialogflowApi implements ICredentialType {
 	name = 'dialogflowCredentialsApi';
 	displayName = 'Dialogflow API';
-	documentationUrl = '<your-docs-url>';
+	documentationUrl = 'https://github.com/MichaelBarney/n8n-nodes-bot-mb#readme';
 	properties: INodeProperties[] = [
 		{
 			displayName: 'Project ID',

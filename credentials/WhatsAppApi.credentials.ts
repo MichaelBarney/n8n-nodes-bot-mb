@@ -8,7 +8,7 @@ import {
 export class WhatsAppApi implements ICredentialType {
 	name = 'whatsappCredentialsApi';
 	displayName = 'WhatsApp Cloud API';
-	documentationUrl = '<your-docs-url>';
+	documentationUrl = 'https://github.com/MichaelBarney/n8n-nodes-bot-mb#readme';
 	properties: INodeProperties[] = [
 		{
 			displayName: 'WhatsApp Token',
