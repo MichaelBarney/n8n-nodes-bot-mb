@@ -1,14 +1,14 @@
 {
 	"name": "n8n-nodes-bot-mb",
-	"version": "0.1.0",
-	"description": "",
+	"version": "1.0.0",
+	"description": "Various N8N nodes for creating chatbots.",
 	"keywords": [
 		"n8n-community-node-package"
 	],
 	"license": "MIT",
 	"homepage": "michaelbarney.com",
 	"author": {
-		"name": "MichaelBarney"
+		"name": "Michael Barney"
 	},
 	"repository": {
 		"type": "git",

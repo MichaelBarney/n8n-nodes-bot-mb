@@ -4,8 +4,8 @@
 
 This repo contains various nodes made specifically for the creation of chatbots, including:
 
-- WhatsApp Node
-- Dialogflow Node
+- WhatsApp Node: Allows the use of the Cloud API to send and receive messages, including sending button messages.
+- Dialogflow Node: Enables the integration with the Dialogflow platform for creating conversations.
 
 ## Credentials
 

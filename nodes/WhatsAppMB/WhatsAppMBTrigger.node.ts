@@ -6,7 +6,7 @@ export class WhatsAppMBTrigger implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'WhatsApp MB Trigger',
 		name: 'whatsAppMBTrigger',
-		icon: 'file:WhatsAppMB.png',
+		icon: 'file:WhatsAppMB.svg',
 		group: ['trigger'],
 		version: 1,
 		subtitle: '={{$parameter["operation"]}}',
@@ -15,7 +15,7 @@ export class WhatsAppMBTrigger implements INodeType {
 			name: 'WhatsApp MB',
 		},
 		inputs: [],
-		outputs: ['main', 'main'],
+		outputs: ['main', 'main'], // eslint-disable-line
 		outputNames: ['message', 'status'],
 		credentials: [
 			{

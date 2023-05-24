@@ -1,12 +1,18 @@
 import { IExecuteFunctions } from 'n8n-core';
-import { IDataObject, INodeExecutionData, INodeType, INodeTypeDescription } from 'n8n-workflow';
+import {
+	IDataObject,
+	INodeExecutionData,
+	INodeType,
+	INodeTypeDescription,
+	NodeOperationError,
+} from 'n8n-workflow';
 import { sendMessage, markAsRead } from './executions';
 
 export class WhatsAppMB implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'WhatsApp MB',
 		name: 'whatsAppMB',
-		icon: 'file:WhatsAppMB.png',
+		icon: 'file:WhatsAppMB.svg',
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"]}}',
@@ -65,12 +71,12 @@ export class WhatsAppMB implements INodeType {
 				},
 			},
 			{
-				displayName: 'Message Id',
+				displayName: 'Message ID',
 				name: 'message_id',
 				type: 'string',
 				default: '',
 				required: true,
-				description: 'The received message id',
+				description: 'The Received Message ID',
 				displayOptions: {
 					show: {
 						operation: ['mark_as_read'],
@@ -159,7 +165,10 @@ export class WhatsAppMB implements INodeType {
 			case 'mark_as_read':
 				return await markAsRead(this, wppToken as IDataObject);
 			default:
-				throw new Error(`The operation "${operation}" is not supported!`);
+				throw new NodeOperationError(
+					this.getNode(),
+					`The operation "${operation}" is not supported!`,
+				);
 		}
 	}
 }
