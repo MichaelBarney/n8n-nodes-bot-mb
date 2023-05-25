@@ -37,7 +37,7 @@ export const markAsRead = async (
 	}
 };
 
-export const sendMessage = async (
+export const sendSessionMessage = async (
 	msg_body: string,
 	to_number: string,
 	number_id: string,
@@ -106,5 +106,53 @@ export const sendMessage = async (
 	} catch (error) {
 		console.log(error);
 		return error;
+	}
+};
+
+export const sendTemplateMessage = async (
+	template_name: string,
+	language_code: string,
+	components: IDataObject,
+	to_number: string,
+	number_id: string,
+	wppToken: IDataObject,
+	execution: IExecuteFunctions,
+): Promise<INodeExecutionData> => {
+	console.log('Send template message');
+
+	const requestBody = {
+		messaging_product: 'whatsapp',
+		to: to_number,
+		type: 'template',
+		template: {
+			name: template_name,
+			language: {
+				code: language_code,
+				policy: 'deterministic',
+			},
+			components,
+		},
+	};
+
+	console.log('Request Body Changed: ', JSON.stringify(requestBody));
+
+	const options: IHttpRequestOptions = {
+		headers: {
+			Accept: 'application/json',
+		},
+		method: 'POST',
+		body: requestBody,
+		url: 'https://graph.facebook.com/v12.0/' + number_id + '/messages?access_token=' + wppToken,
+		json: true,
+	};
+
+	try {
+		console.log('Sending message...');
+		const response = await execution.helpers.httpRequest(options);
+		console.log('Sent: ', response);
+		return response;
+	} catch (error) {
+		console.log(error.response.data);
+		return error.response.data;
 	}
 };
