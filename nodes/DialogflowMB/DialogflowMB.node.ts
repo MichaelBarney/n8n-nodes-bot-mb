@@ -41,6 +41,37 @@ export class DialogflowMB implements INodeType {
 				required: true,
 				description: 'The text to be processed',
 			},
+			{
+				displayName: 'Contexts',
+				name: 'contextUi',
+				placeholder: 'Add Context',
+				type: 'fixedCollection',
+				default: '',
+				typeOptions: {
+					multipleValues: true,
+				},
+				description: '',
+				options: [
+					{
+						name: 'contextValues',
+						displayName: 'Context',
+						values: [
+							{
+								displayName: 'Name',
+								name: 'name',
+								type: 'string',
+								default: '',
+							},
+							{
+								displayName: 'Lifespan',
+								name: 'lifespan',
+								type: 'number',
+								default: 5,
+							},
+						],
+					},
+				],
+			},
 		],
 	};
 
@@ -48,7 +79,6 @@ export class DialogflowMB implements INodeType {
 		const credentials = (await this.getCredentials('dialogflowCredentialsApi')) as IDataObject;
 		const credentialsJSON = JSON.parse(credentials.credentials_json as string);
 		const projectId = credentials.project_id as string;
-		console.log('Credentials', projectId, credentialsJSON);
 
 		const user_id = this.getNodeParameter('user_id', 0) as string;
 		const input_text = this.getNodeParameter('input_text', 0) as string;
@@ -56,7 +86,20 @@ export class DialogflowMB implements INodeType {
 		const dialogflogSessionClient = new dialogflow.SessionsClient({
 			credentials: credentialsJSON,
 		});
-		// const dialogflowSessionPath = dialogflogSessionClient.sessionPath(projectId, user_id);
+
+		const contextUi = this.getNodeParameter('contextUi', 0) as any;
+
+		const contexts = contextUi.contextValues.map((context: any) => {
+			return {
+				name: dialogflogSessionClient.projectAgentSessionContextPath(
+					projectId,
+					user_id,
+					context.name,
+				),
+				parameters: {},
+				lifespanCount: context.lifespan,
+			};
+		});
 
 		const dialogflowSessionPath = dialogflogSessionClient.projectAgentSessionPath(
 			projectId,
@@ -69,6 +112,9 @@ export class DialogflowMB implements INodeType {
 					text: input_text,
 					languageCode: 'pt-BR',
 				},
+			},
+			queryParams: {
+				contexts: contexts, // Add the context to the query parameters
 			},
 		};
 		const dialogflowRequest = await dialogflogSessionClient.detectIntent(dialogflowRequestParams);

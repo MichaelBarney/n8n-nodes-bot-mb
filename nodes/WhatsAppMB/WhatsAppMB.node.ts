@@ -201,7 +201,6 @@ export class WhatsAppMB implements INodeType {
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
-		console.log('Items: ', items);
 
 		const credentials = (await this.getCredentials('whatsappCredentialsApi')) as IDataObject;
 		const wppToken = credentials.wppToken;
