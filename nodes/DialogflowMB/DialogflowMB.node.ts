@@ -88,17 +88,20 @@ export class DialogflowMB implements INodeType {
 
 		const contextUi = this.getNodeParameter('contextUi', 0) as any;
 
-		const contexts = contextUi.contextValues.map((context: any) => {
-			return {
-				name: dialogflogSessionClient.projectAgentSessionContextPath(
-					projectId,
-					user_id,
-					context.name,
-				),
-				parameters: {},
-				lifespanCount: context.lifespan,
-			};
-		});
+		const contexts =
+			contextUi.contextValues == undefined
+				? []
+				: contextUi.contextValues.map((context: any) => {
+						return {
+							name: dialogflogSessionClient.projectAgentSessionContextPath(
+								projectId,
+								user_id,
+								context.name,
+							),
+							parameters: {},
+							lifespanCount: context.lifespan,
+						};
+				  });
 
 		const dialogflowSessionPath = dialogflogSessionClient.projectAgentSessionPath(
 			projectId,
