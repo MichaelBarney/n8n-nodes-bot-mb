@@ -46,11 +46,10 @@ export class DialogflowMB implements INodeType {
 				name: 'contextUi',
 				placeholder: 'Add Context',
 				type: 'fixedCollection',
-				default: '',
+				default: {},
 				typeOptions: {
 					multipleValues: true,
 				},
-				description: '',
 				options: [
 					{
 						name: 'contextValues',
