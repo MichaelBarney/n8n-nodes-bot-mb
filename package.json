@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-bot-mb",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"description": "Various N8N nodes for creating chatbots.",
 	"keywords": [
 		"n8n-community-node-package"
