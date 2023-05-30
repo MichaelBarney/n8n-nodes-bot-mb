@@ -50,14 +50,6 @@ export class WhatsAppMB implements INodeType {
 				default: 'send_message',
 			},
 			{
-				displayName: 'Business Number ID',
-				name: 'number_id',
-				type: 'string',
-				default: '',
-				required: true,
-				description: 'Your business phone number',
-			},
-			{
 				displayName: 'To Number',
 				name: 'to_number',
 				type: 'string',
@@ -203,7 +195,8 @@ export class WhatsAppMB implements INodeType {
 		const items = this.getInputData();
 
 		const credentials = (await this.getCredentials('whatsappCredentialsApi')) as IDataObject;
-		const wppToken = credentials.wppToken;
+		const wppToken = credentials.wppToken as IDataObject;
+		const number_id = credentials.number_id as IDataObject;
 
 		const operation = this.getNodeParameter('operation', 0) as string;
 
@@ -211,7 +204,6 @@ export class WhatsAppMB implements INodeType {
 			case 'send_message':
 				const response = [];
 				for (let i = 0; i < items.length; i++) {
-					const number_id = this.getNodeParameter('number_id', 0) as string;
 					const to_number = this.getNodeParameter('to_number', 0) as string;
 					const message_type = this.getNodeParameter('message_type', 0) as string;
 
@@ -223,7 +215,7 @@ export class WhatsAppMB implements INodeType {
 							to_number,
 							number_id,
 							buttonsui,
-							wppToken as IDataObject,
+							wppToken,
 							this,
 						);
 						response.push(resp);
@@ -247,7 +239,7 @@ export class WhatsAppMB implements INodeType {
 				return [this.helpers.returnJsonArray(response)];
 
 			case 'mark_as_read':
-				return await markAsRead(this, wppToken as IDataObject);
+				return await markAsRead(this, wppToken as IDataObject, number_id);
 			default:
 				throw new NodeOperationError(
 					this.getNode(),

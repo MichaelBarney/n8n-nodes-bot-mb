@@ -8,9 +8,9 @@ import {
 export const markAsRead = async (
 	execution: IExecuteFunctions,
 	wppToken: IDataObject,
+	fromNumber: IDataObject,
 ): Promise<INodeExecutionData[][]> => {
 	const msgId = execution.getNodeParameter('message_id', 0) as string;
-	const fromNumber = execution.getNodeParameter('number_id', 0) as string;
 
 	// Mark the message as read
 	const options: IHttpRequestOptions = {
@@ -40,7 +40,7 @@ export const markAsRead = async (
 export const sendSessionMessage = async (
 	msg_body: string,
 	to_number: string,
-	number_id: string,
+	number_id: IDataObject,
 	buttonsui: any,
 	wppToken: IDataObject,
 	execution: IExecuteFunctions,
@@ -114,7 +114,7 @@ export const sendTemplateMessage = async (
 	language_code: string,
 	components: IDataObject,
 	to_number: string,
-	number_id: string,
+	number_id: IDataObject,
 	wppToken: IDataObject,
 	execution: IExecuteFunctions,
 ): Promise<INodeExecutionData> => {

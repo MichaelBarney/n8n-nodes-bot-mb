@@ -22,6 +22,14 @@ export class WhatsAppApi implements ICredentialType {
 			type: 'string',
 			default: '',
 		},
+		{
+			displayName: 'Business Number ID',
+			name: 'number_id',
+			type: 'string',
+			default: '',
+			required: true,
+			description: 'Your business phone number',
+		},
 	];
 
 	// This allows the credential to be used by other parts of n8n
