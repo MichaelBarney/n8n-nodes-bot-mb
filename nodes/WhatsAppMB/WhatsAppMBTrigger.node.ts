@@ -102,9 +102,15 @@ export class WhatsAppMBTrigger implements INodeType {
 				const messages = change.value.messages;
 				if (messages !== undefined) {
 					for (const message of messages) {
+						console.log('Message: ', message);
 						let businessNumberId = change.value.metadata.phone_number_id;
 						let from = message.from; // extract the phone number from the webhook payload
-						let text = message.text.body;
+						let text = '';
+						if (message.text) {
+							text = message.text.body;
+						} else if (message.button) {
+							text = message.button.payload;
+						}
 						const id = message.id;
 						receivedMessages.push({ businessNumberId, from, text, id });
 					}
