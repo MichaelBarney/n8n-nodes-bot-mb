@@ -204,12 +204,13 @@ export class WhatsAppMB implements INodeType {
 			case 'send_message':
 				const response = [];
 				for (let i = 0; i < items.length; i++) {
-					const to_number = this.getNodeParameter('to_number', 0) as string;
 					const message_type = this.getNodeParameter('message_type', 0) as string;
 
 					if (message_type === 'session') {
 						const message = this.getNodeParameter('message', i) as string;
 						const buttonsui = this.getNodeParameter('buttonsui', i);
+						const to_number = this.getNodeParameter('to_number', i) as string;
+
 						const resp = await sendSessionMessage(
 							message,
 							to_number,
