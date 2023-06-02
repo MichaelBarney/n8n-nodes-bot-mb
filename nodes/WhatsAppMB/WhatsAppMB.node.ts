@@ -224,6 +224,7 @@ export class WhatsAppMB implements INodeType {
 						const template = this.getNodeParameter('template', i) as string;
 						const language_code = this.getNodeParameter('language_code', i) as string;
 						const components = this.getNodeParameter('template_components', i) as IDataObject;
+						const to_number = this.getNodeParameter('to_number', i) as string;
 
 						const resp = await sendTemplateMessage(
 							template,
